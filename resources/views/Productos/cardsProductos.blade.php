@@ -9,7 +9,7 @@
                     'https://via.placeholder.com/250x250?text=Producto+1+250g',
                     'https://via.placeholder.com/250x250?text=Producto+1+500g'
                 ],
-                precios: [120, 180, 230],
+                precios: [80, 150, 295],
                 gramajes: ['250g', '500g', '1kg']
             },
             {
@@ -20,7 +20,7 @@
                     'https://via.placeholder.com/250x250?text=Producto+2+250g',
                     'https://via.placeholder.com/250x250?text=Producto+2+500g'
                 ],
-                precios: [150, 210, 270],
+                precios: [80, 150, 295],
                 gramajes: ['250g', '500g', '1kg']
             }
         ],
