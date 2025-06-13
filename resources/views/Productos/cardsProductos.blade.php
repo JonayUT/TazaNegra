@@ -25,7 +25,8 @@
             }
         ],
         productoSeleccionado: 0,
-        gramajeSeleccionado: 0
+        gramajeSeleccionado: 0,
+        cantidad: 1
     }"
     class="flex flex-col md:flex-row items-center justify-center bg-gray-200 px-2 py-8 w-full"
 >
@@ -79,13 +80,50 @@
             </template>
         </div>
 
-        <!-- Botón Agregar al carrito -->
-        <div class="mt-6">
-            <button
-                class="w-full md:w-auto px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition duration-300"
-            >
-                Agregar al carrito
-            </button>
-        </div>
+        <!-- Selector de cantidad y botón Agregar al carrito solo para usuarios autenticados -->
+        @auth
+            <div class="flex items-center justify-center gap-2 mt-4">
+                <button
+                    type="button"
+                    class="px-3 py-1 bg-gray-300 rounded-full text-lg font-bold"
+                    @click="if(cantidad > 1) cantidad--"
+                >-</button>
+                <input
+                    type="number"
+                    min="1"
+                    x-model="cantidad"
+                    class="w-14 text-center border rounded"
+                >
+                <button
+                    type="button"
+                    class="px-3 py-1 bg-gray-300 rounded-full text-lg font-bold"
+                    @click="cantidad++"
+                >+</button>
+            </div>
+
+            <div class="mt-6">
+                <button
+                    @click.prevent="
+                        fetch('{{ route('cart.add') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                    body: JSON.stringify({
+                        id: productoSeleccionado + '-' + gramajeSeleccionado,
+                        nombre: productos[productoSeleccionado].nombre + ' ' + productos[productoSeleccionado].gramajes[gramajeSeleccionado],
+                        precio: productos[productoSeleccionado].precios[gramajeSeleccionado],
+                        cantidad: cantidad
+                    })
+                }).then(r => r.json()).then(data => {
+                    alert('¡Producto agregado al carrito!');
+                    cantidad = 1;
+                });
+            "
+            class="w-full md:w-auto px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition duration-300"
+        >
+            Agregar al carrito
+        </button>
     </div>
-</div>
+@endauth

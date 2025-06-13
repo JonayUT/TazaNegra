@@ -7,12 +7,27 @@
                     d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
         </button>
-        <div class="hidden md:flex space-x-6">
+        <div class="hidden md:flex space-x-6 items-center">
             <a href="{{ url('/') }}" class="text-gray-700 hover:text-black">Inicio</a>
             <a href="{{ url('/nosotros') }}" class="text-gray-700 hover:text-black">Nosotros</a>
             <a href="{{ url('/productos') }}" class="text-gray-700 hover:text-black">Productos</a>
             <a href="{{ url('/news') }}" class="text-gray-700 hover:text-black">News</a>
             <a href="{{ url('/contacto') }}" class="text-gray-700 hover:text-black">Contacto</a>
+            @guest
+                <a href="{{ route('login') }}" class="text-gray-700 hover:text-black">Login</a>
+                <a href="{{ route('register') }}" class="text-gray-700 hover:text-black">Registro</a>
+            @else
+                @if(Auth::user()->role_id == 1)
+                    <a href="{{ route('admin.usuarios.index') }}" class="text-purple-700 hover:text-black">Panel Usuarios</a>
+                    <a href="{{ route('admin.pedidos') }}" class="text-purple-700 hover:text-black">Panel Pedidos</a>
+                @endif
+                <a href="{{ url('/perfil') }}" class="text-gray-700 hover:text-black">Perfil</a>
+                <a href="{{ route('cart') }}" class="text-gray-700 hover:text-black">Carrito</a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="text-gray-700 hover:text-black ml-2">Salir</button>
+                </form>
+            @endguest
         </div>
     </div>
     <!-- Menú móvil con animación -->
@@ -31,5 +46,20 @@
         <a href="{{ url('/productos') }}" class="block py-2 text-gray-700 hover:text-black">Productos</a>
         <a href="{{ url('/news') }}" class="block py-2 text-gray-700 hover:text-black">News</a>
         <a href="{{ url('/contacto') }}" class="block py-2 text-gray-700 hover:text-black">Contacto</a>
+        @guest
+            <a href="{{ route('login') }}" class="block py-2 text-gray-700 hover:text-black">Login</a>
+            <a href="{{ route('register') }}" class="block py-2 text-gray-700 hover:text-black">Registro</a>
+        @else
+            @if(Auth::user()->role_id == 1)
+                <a href="{{ route('admin.usuarios.index') }}" class="block py-2 text-purple-700 hover:text-black">Panel Usuarios</a>
+                <a href="{{ route('admin.pedidos') }}" class="block py-2 text-purple-700 hover:text-black">Panel Pedidos</a>
+            @endif
+            <a href="{{ url('/perfil') }}" class="block py-2 text-gray-700 hover:text-black">Perfil</a>
+            <a href="{{ route('cart') }}" class="block py-2 text-gray-700 hover:text-black">Carrito</a>
+            <form action="{{ route('logout') }}" method="POST" class="block">
+                @csrf
+                <button type="submit" class="w-full text-left py-2 text-gray-700 hover:text-black">Salir</button>
+            </form>
+        @endguest
     </div>
 </nav>
