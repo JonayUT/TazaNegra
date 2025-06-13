@@ -13,12 +13,20 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * Nombre de la tabla personalizada.
+     *
+     * @var string
+     */
+    protected $table = 'usuarios';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombre',
+        'telefono',
         'email',
         'password',
     ];
@@ -42,4 +50,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class, 'usuario_id');
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'usuario_id');
+    }
 }
+
