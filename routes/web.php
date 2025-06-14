@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
+use App\Http\Controllers\Admin\AdminController;
 
 // Páginas principales
 Route::get('/', function () {
@@ -102,7 +103,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/perfil/direccion/nueva', [PerfilController::class, 'guardarDireccion'])->name('perfil.direccion.guardar');
     Route::delete('/perfil/direccion/{direccion}', [PerfilController::class, 'eliminarDireccion'])->name('perfil.direccion.eliminar');
 
+    Route::middleware(['auth', 'admin'])->get('/admin/order/{order}', [AdminController::class, 'verOrder'])->name('admin.order.ver');
     Route::get('/perfil/pedido/{pedido}', [PerfilController::class, 'verPedido'])->name('perfil.pedido.ver');
+
 });
 
 // Checkout
@@ -124,7 +127,7 @@ Route::post('/checkout/simular', function(Request $request) {
         'usuario_id' => $usuario->id,
         'address_id' => $direccion_id,
         'total' => collect($cart)->sum(function($item) { return $item['precio'] * $item['cantidad']; }),
-        'status' => 'Nuevo Pedido',
+        'estado' => 1, // Por ejemplo, 1 para "Nuevo"
     ]);
 
     // Crear los items del pedido
@@ -149,3 +152,5 @@ Route::post('/checkout/simular', function(Request $request) {
 
     return view('checkout.simular', compact('pedido'));
 })->name('checkout.simular');
+
+Route::post('/admin/order/{order}/estado', [AdminController::class, 'actualizarEstado'])->name('admin.order.estado');

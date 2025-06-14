@@ -1,4 +1,3 @@
-
 @extends('Plantillas.base')
 @section('title', 'Compra realizada')
 @section('content')
@@ -24,7 +23,9 @@
         </div>
     </div>
     <div class="mb-6">
-        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded">Estado: {{ $pedido->status }}</span>
+        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded">
+            Estado: {{ $pedido->estadoRelacion->nombre ?? 'Sin estado' }}
+        </span>
     </div>
     <a href="{{ route('perfil') }}" class="text-blue-600 hover:underline">Ir a mi perfil</a>
 </div>

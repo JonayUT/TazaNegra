@@ -2,6 +2,7 @@
     x-data="{
         productos: [
             {
+                ids: [1, 2, 4], // IDs reales por gramaje
                 nombre: 'Cafe En Grano Taza Negra',
                 descripcion: 'Nuestro café en grano conserva toda su frescura y aroma, ideal para quienes buscan una experiencia de molienda y sabor inigualable en cada taza.',
                 imagenes: [
@@ -13,6 +14,7 @@
                 gramajes: ['250g', '500g', '1kg']
             },
             {
+                ids: [5, 6, 7],
                 nombre: 'Cafe Molido Taza Negra',
                 descripcion: 'Nuestro café molido es práctico y mantiene la calidad y el sabor auténtico de Taza Negra, perfecto para preparar rápidamente una taza deliciosa.',
                 imagenes: [
@@ -82,17 +84,18 @@
 
         <!-- Selector de cantidad y botón Agregar al carrito solo para usuarios autenticados -->
         @auth
+            <!-- Ejemplo de botones + y - más grandes usando Tailwind -->
             <div class="flex items-center justify-center gap-2 mt-4">
                 <button
                     type="button"
-                    class="px-3 py-1 bg-gray-300 rounded-full text-lg font-bold"
+                    class="px-3 py-1 bg-gray-300 rounded-full text-xl font-bold"
                     @click="if(cantidad > 1) cantidad--"
                 >-</button>
                 <input
                     type="number"
                     min="1"
                     x-model="cantidad"
-                    class="w-14 text-center border rounded"
+                    class="w-16 text-center border rounded text-lg"
                 >
                 <button
                     type="button"
@@ -111,7 +114,8 @@
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
                     body: JSON.stringify({
-                        id: productoSeleccionado + '-' + gramajeSeleccionado,
+                        id: productos[productoSeleccionado].ids[gramajeSeleccionado],
+                        product_id: productos[productoSeleccionado].ids[gramajeSeleccionado],
                         nombre: productos[productoSeleccionado].nombre + ' ' + productos[productoSeleccionado].gramajes[gramajeSeleccionado],
                         precio: productos[productoSeleccionado].precios[gramajeSeleccionado],
                         cantidad: cantidad
@@ -127,3 +131,15 @@
         </button>
     </div>
 @endauth
+</div>
+
+<style>
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
