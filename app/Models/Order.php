@@ -15,7 +15,7 @@ class Order extends Model
         'usuario_id',
         'address_id',
         'total',
-        'status',
+        'estado',
     ];
 
     public function user()
@@ -31,5 +31,10 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+    
+    public function estadoRelacion()
+    {
+        return $this->belongsTo(\App\Models\Estado::class, 'estado', 'id');
     }
 }

@@ -6,25 +6,25 @@
     <table class="w-full border">
         <thead>
             <tr class="bg-gray-100">
-                <th class="py-2 px-3">ID</th>
+                <th class="py-2 text-center">ID</th>
                 <th class="py-2 px-3">Nombre</th>
                 <th class="py-2 px-3">Correo</th>
-                <th class="py-2 px-3">Rol</th>
-                <th class="py-2 px-3">Acciones</th>
+                <th class="py-2 text-center">Rol</th>
+                <th class="py-2 text-center">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($usuarios as $usuario): ?>
             <tr class="border-t">
-                <td class="py-2 px-3">{{ $usuario->id }}</td>
-                <td class="py-2 px-3">
+                <td class="py-2 text-center">{{ $usuario->id }}</td>
+                <td class="py-2 text-center">
                     <a href="{{ route('admin.usuarios.show', $usuario) }}" class="text-green-700 hover:underline">
                         {{ $usuario->nombre }}
                     </a>
                 </td>
-                <td class="py-2 px-3">{{ $usuario->email }}</td>
-                <td class="py-2 px-3">{{ $usuario->role->name ?? 'Usuario' }}</td>
-                <td class="py-2 px-3 flex gap-2">
+                <td class="py-2 text-center">{{ $usuario->email }}</td>
+                <td class="py-2 text-center">{{ $usuario->role->name ?? 'Usuario' }}</td>
+                <td class="py-2 text-center flex gap-2">
                     <a href="{{ route('admin.usuarios.edit', $usuario) }}" class="text-blue-600 hover:underline">Editar</a>
                     <form action="{{ route('admin.usuarios.destroy', $usuario) }}" method="POST" onsubmit="return confirm('¿Eliminar usuario?');" style="display:inline;">
                         @csrf

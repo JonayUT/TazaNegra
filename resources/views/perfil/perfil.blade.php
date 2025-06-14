@@ -1,4 +1,3 @@
-
 @extends('Plantillas.base')
 @section('title', 'Mi Perfil')
 @section('content')
@@ -47,22 +46,22 @@
                     <table class="w-full border mb-4">
                         <thead>
                             <tr class="bg-gray-100">
-                                <th class="py-2 px-3">ID</th>
-                                <th class="py-2 px-3">Fecha</th>
-                                <th class="py-2 px-3">Total</th>
-                                <th class="py-2 px-3">Estado</th>
-                                <th class="py-2 px-3">Ver</th>
+                                <th class="py-2 text-center">ID</th>
+                                <th class="py-2 text-center">Fecha</th>
+                                <th class="py-2 text-center">Total</th>
+                                <th class="py-2 text-center">Estado</th>
+                                <th class="py-2 text-center">Ver</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach(Auth::user()->orders as $pedido)
                             <tr class="border-t">
-                                <td class="py-2 px-3">{{ $pedido->id }}</td>
-                                <td class="py-2 px-3">{{ $pedido->created_at->format('d/m/Y') }}</td>
-                                <td class="py-2 px-3">${{ $pedido->total }}</td>
-                                <td class="py-2 px-3">{{ $pedido->status }}</td>
-                                <td class="py-2 px-3">
-                                    <a href="{{ route('perfil.pedido.ver', $pedido) }}" class="text-blue-600 hover:underline">Detalles</a>
+                                <td class="py-2 text-center">{{ $pedido->id }}</td>
+                                <td class="py-2 text-center">{{ $pedido->created_at->format('d/m/Y') }}</td>
+                                <td class="py-2 text-center">${{ number_format($pedido->total, 2) }}</td>
+                                <td class="py-2 text-center">{{ $pedido->estadoRelacion->nombre ?? 'Sin estado' }}</td>
+                                <td class="py-2 text-center">
+                                    <a href="{{ route('perfil.pedido.ver', $pedido->id) }}" class="text-blue-600 hover:underline">Detalles</a>
                                 </td>
                             </tr>
                             @endforeach

@@ -31,14 +31,14 @@
         <tbody>
             @forelse($orders as $order)
             <tr class="border-t">
-                <td class="py-2 px-3">{{ $order->id }}</td>
-                <td class="py-2 px-3">{{ $order->created_at->format('d/m/Y') }}</td>
-                <td class="py-2 px-3">${{ $order->total }}</td>
-                <td class="py-2 px-3">{{ $order->status }}</td>
-                <td class="py-2 px-3">
+                <td class="py-2 text-center">{{ $order->id }}</td>
+                <td class="py-2 text-center">{{ $order->created_at->format('d/m/Y') }}</td>
+                <td class="py-2 text-center">${{ $order->total }}</td>
+                <td class="py-2 text-center">{{ $order->estadoRelacion->nombre ?? 'Sin estado' }}</td>
+                <td class="py-2 text-center">
                     <ul>
                         @foreach($order->orderItems as $item)
-                            <li>{{ $item->product->name ?? 'Producto eliminado' }} x{{ $item->quantity }}</li>
+                            <li>{{ $item->product->nombre ?? 'Producto eliminado' }} x{{ $item->cantidad }} <strong>${{ $item->precio * $item->cantidad }}</strong></li>
                         @endforeach
                     </ul>
                 </td>

@@ -12,8 +12,11 @@ class PerfilController extends Controller
     // Muestra el perfil del usuario
     public function index()
     {
-        $usuario = Auth::user()->load('addresses', 'orders');
-        return view('perfil.perfil', compact('usuario'));
+        $user = Auth::user()->load([
+            'orders.estadoRelacion', // Carga la relación estado de cada pedido
+            'addresses'
+        ]);
+        return view('perfil.perfil', compact('user'));
     }
 
     // Muestra el formulario para editar el perfil
@@ -71,13 +74,22 @@ class PerfilController extends Controller
     }
 
     // Muestra los detalles de un pedido
-    public function verPedido(Order $pedido)
+    public function verPedido(\App\Models\Order $pedido)
     {
         // Solo permite ver pedidos del usuario autenticado
-        if ($pedido->user_id != Auth::id()) {
+        if ($pedido->usuario_id !== Auth::id()) {
             abort(403);
         }
-        $pedido->load('orderItems.product', 'address');
+        $pedido->load('orderItems', 'address');
         return view('perfil.pedido_detalle', compact('pedido'));
+    }
+
+    public function perfil()
+    {
+        $user = Auth::user()->load([
+            'orders.estado',
+            'addresses'
+        ]);
+        return view('perfil.perfil', compact('user'));
     }
 }
