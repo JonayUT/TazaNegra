@@ -11,6 +11,10 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\InstagramController;
+
+//Ig de la minita??
+Route::get('/api/instagram', [InstagramController::class, 'getInstagramFeed'])->name('instagram.feed');
 
 // Páginas principales
 Route::get('/', function () {
@@ -105,7 +109,6 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['auth', 'admin'])->get('/admin/order/{order}', [AdminController::class, 'verOrder'])->name('admin.order.ver');
     Route::get('/perfil/pedido/{pedido}', [PerfilController::class, 'verPedido'])->name('perfil.pedido.ver');
-
 });
 
 // Checkout
@@ -113,7 +116,7 @@ Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
 
-Route::post('/checkout/simular', function(Request $request) {
+Route::post('/checkout/simular', function (Request $request) {
     $cart = session('cart', []);
     $direccion_id = $request->input('direccion_id');
     $usuario = Auth::user();
@@ -126,7 +129,9 @@ Route::post('/checkout/simular', function(Request $request) {
     $pedido = Order::create([
         'usuario_id' => $usuario->id,
         'address_id' => $direccion_id,
-        'total' => collect($cart)->sum(function($item) { return $item['precio'] * $item['cantidad']; }),
+        'total' => collect($cart)->sum(function ($item) {
+            return $item['precio'] * $item['cantidad'];
+        }),
         'estado' => 1, // Por ejemplo, 1 para "Nuevo"
     ]);
 
