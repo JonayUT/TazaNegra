@@ -10,14 +10,17 @@
     <div class="bg-white rounded-xl shadow-lg p-6 mb-10">
         <h2 class="text-2xl font-semibold mb-4 text-center">Síguenos en Instagram</h2>
 
-        <div id="instagram-feed" class="flex flex-wrap justify-center gap-4 p-4">
-            <!-- Los posts se cargarán aquí mediante JavaScript -->
+        <div id="instagram-feed" class="flex justify-center">
+            <!-- SnapWidget embed -->
+            <script src="https://snapwidget.com/js/snapwidget.js"></script>
+            <iframe src="https://snapwidget.com/embed/1102488" class="snapwidget-widget" allowtransparency="true"
+                frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"
+                title="Posts from Instagram"></iframe>
         </div>
 
         <p class="text-center text-gray-500 mt-4">
             ¡No te pierdas nuestras últimas publicaciones!
-            <a href="https://instagram.com/rulexvr" target="_blank" class="text-pink-600 underline">Ver en
-                Instagram</a>
+            <a href="https://instagram.com/rulexvr" target="_blank" class="text-pink-600 underline">Ver en Instagram</a>
         </p>
     </div>
 
@@ -34,7 +37,4 @@
         <!-- Formulario de suscripción -->
     </div>
 </div>
-
-<!-- Cargar script compilado de Instagram -->
-@vite('resources/js/components/instagram.js')
 @endsection
