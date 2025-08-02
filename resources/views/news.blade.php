@@ -7,10 +7,11 @@
     <h1 class="text-4xl font-bold text-center mb-8">Novedades</h1>
 
     <!-- Panel grande para el feed de Instagram -->
-    <div class="bg-white rounded-xl shadow-lg p-6 mb-10">
-        <h2 class="text-2xl font-semibold mb-4 text-center">Síguenos en Instagram</h2>
+    <div class="bg-black rounded-xl shadow-lg p-6 mb-10">
+        <h2 class="text-2xl text-white font-hatton font-semibold mb-4 text-center">Síguenos en Instagram</h2>
 
-        <div id="instagram-feed" class="flex justify-center">
+        <div id="instagram-feed" class="flex justify-center items-center rounded-2xl overflow-hidden h-64 md:h-96 bg-cover bg-center"
+            style="background-image: url('https://snapwidget.com/embed/1102488');">
             <!-- SnapWidget embed -->
             <script src="https://snapwidget.com/js/snapwidget.js"></script>
             <iframe src="https://snapwidget.com/embed/1102488" class="snapwidget-widget" allowtransparency="true"
@@ -18,9 +19,9 @@
                 title="Posts from Instagram"></iframe>
         </div>
 
-        <p class="text-center text-gray-500 mt-4">
+        <p class="text-center text-white mt-4">
             ¡No te pierdas nuestras últimas publicaciones!
-            <a href="https://instagram.com/rulexvr" target="_blank" class="text-pink-600 underline">Ver en Instagram</a>
+            <a href="https://instagram.com/rulexvr" target="_blank" class="text-blue-600 underline">Ver en Instagram</a>
         </p>
     </div>
 

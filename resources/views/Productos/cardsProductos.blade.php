@@ -6,9 +6,9 @@
                 nombre: 'Cafe En Grano Taza Negra',
                 descripcion: 'Nuestro café en grano conserva toda su frescura y aroma, ideal para quienes buscan una experiencia de molienda y sabor inigualable en cada taza.',
                 imagenes: [
-                    'https://via.placeholder.com/250x250?text=Producto+1+100g',
-                    'https://via.placeholder.com/250x250?text=Producto+1+250g',
-                    'https://via.placeholder.com/250x250?text=Producto+1+500g'
+                    '/images/bolsa.jpg', //2500g
+                    '/images/bolsa.jpg', //500g
+                    '/images/bolsa.jpg'  //1kg
                 ],
                 precios: [80, 150, 295],
                 gramajes: ['250g', '500g', '1kg']
@@ -16,11 +16,11 @@
             {
                 ids: [5, 6, 7],
                 nombre: 'Cafe Molido Taza Negra',
-                descripcion: 'Nuestro café molido es práctico y mantiene la calidad y el sabor auténtico de Taza Negra, perfecto para preparar rápidamente una taza deliciosa.',
+                descripcion: 'Nuestro café molido es práctico, manteniendo la calidad y el sabor auténtico de Taza Negra, perfecto para preparar rápidamente una taza deliciosa.',
                 imagenes: [
-                    'https://via.placeholder.com/250x250?text=Producto+2+100g',
-                    'https://via.placeholder.com/250x250?text=Producto+2+250g',
-                    'https://via.placeholder.com/250x250?text=Producto+2+500g'
+                    '/images/bolsa.jpg', //2500g
+                    '/images/bolsa.jpg', //500g
+                    '/images/bolsa.jpg'  //1kg
                 ],
                 precios: [80, 150, 295],
                 gramajes: ['250g', '500g', '1kg']
@@ -30,14 +30,14 @@
         gramajeSeleccionado: 0,
         cantidad: 1
     }"
-    class="flex flex-col md:flex-row items-center justify-center bg-gray-200 px-2 py-8 w-full"
+    class="flex flex-col md:flex-row items-center justify-center bg-black rounded-xl px-2 py-8 w-full"
 >
     <!-- Selector de productos a la izquierda en desktop, arriba en móvil -->
     <div class="flex flex-col items-center gap-2 w-full md:w-48 mb-4 md:mb-0 md:mr-8">
         <template x-for="(producto, idx) in productos" :key="idx">
             <button
                 @click="productoSeleccionado = idx; gramajeSeleccionado = 0"
-                class="w-full px-4 py-3 rounded-lg border text-lg font-semibold transition-all duration-300 text-left"
+                class="w-full px-4 py-3 rounded-lg border text-lg font-Hatton font-semibold transition-all duration-300 text-left"
                 :class="productoSeleccionado === idx ? 'border-black bg-gray-200 shadow' : 'border-gray-200 bg-white hover:bg-gray-50'"
                 x-text="producto.nombre"
             ></button>
@@ -54,7 +54,7 @@
         <h2 class="text-2xl font-semibold" x-text="productos[productoSeleccionado].nombre"></h2>
         
         <!-- Descripción del producto -->
-        <p class="text-gray-600 mb-2" x-text="productos[productoSeleccionado].descripcion"></p>
+        <p class="font-verdana text-black mb-2" x-text="productos[productoSeleccionado].descripcion"></p>
 
         <!-- Botones de gramaje -->
         <div class="flex justify-center gap-2">
@@ -67,7 +67,7 @@
         </div>
 
         <!-- Precio con transición -->
-        <div class="relative h-8">
+        <div class="relative h-8 font-verdana font-semibold text-black">
             <template x-for="(p, i) in productos[productoSeleccionado].precios" :key="i">
                 <span x-show="gramajeSeleccionado === i"
                     x-transition:enter="transition ease-out duration-300"
